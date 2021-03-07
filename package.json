@@ -1,6 +1,6 @@
 {
     "name": "monandlog",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "A Monitor and Loggin platform for IoT devices",
     "main": "src/index.js",
     "type": "module",
