@@ -35,16 +35,6 @@ await Passport(passport);
 
 app.use("/api/users", UserRoute);
 
-app.post("/api/users/profile", (req, res, next) => {
-    passport.authenticate("jwt", { session: false }, (error, user, info) => {
-        if (!user) {
-            return res.status(401).json({ token: "Invalid token" });
-        } else {
-            return res.status(200).json({ token: "Valid token" });
-        }
-    })(req, res, next);
-});
-
 app.listen(port, () =>
     Logger.info(chalk.blue.bold(`🚀 🌏 Server is up and running on port ${port}`))
 );

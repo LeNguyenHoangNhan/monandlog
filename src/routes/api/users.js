@@ -7,7 +7,7 @@ import {
     validateRegisterInput,
 } from "../../services/validator.js";
 import User from "../../models/User.js";
-
+import passport from "passport";
 const MONGODB_URI = process.env.MONGODB_URI;
 const saltRound = process.env.SALT_ROUND || 10;
 const jwtSecret = process.env.PASSPORT_SECRET || "secret";
@@ -91,6 +91,16 @@ router.post("/login", async(req, res) => {
         Logger.error(error);
         return res.status(500).send(error);
     }
+});
+
+router.get("/profile", (req, res, next) => {
+    passport.authenticate("jwt", { session: false }, (error, user, info) => {
+        if (!user) {
+            return res.status(401).json({ token: "Invalid token" });
+        } else {
+            return res.status(200).json({ token: "Valid token", name: user.name });
+        }
+    })(req, res, next);
 });
 
 export default router;
